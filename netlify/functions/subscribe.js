@@ -15,12 +15,14 @@ exports.handler = async function(event) {
     return { statusCode: 400, body: "Invalid email" };
   }
 
+  const apiKey = process.env.BEEHIIV_API_KEY;
+
   try {
     const response = await fetch("https://api.beehiiv.com/v2/publications/pub_a97db4ba-124b-48b9-84ad-9bc28e4f948f/subscriptions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": "Bearer rVJ8F8m4xsVwxts36uOu7TgSFsvJ7CfcaxhtkM2qsWwAoY5JhTJF04u2ImzIDdc1"
+        "Authorization": `Bearer ${apiKey}`
       },
       body: JSON.stringify({
         email: email,
