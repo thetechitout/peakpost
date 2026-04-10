@@ -269,10 +269,16 @@
         <div class="card-title">Your results are ready</div>
         <div class="card-sub">Enter your email to unlock your top 3 posting windows — free, instant, no spam.</div>
       </div>
-      <div class="field">
-        <label>Email address</label>
-        <input type="email" id="email-input" placeholder="you@example.com" autocomplete="email">
-        <div class="email-error" id="email-error">Please enter a valid email address.</div>
+      <div class="form-row" style="margin-bottom:14px;">
+        <div class="field">
+          <label>First name <span style="font-size:10px;color:var(--muted);text-transform:none;letter-spacing:0;">(optional)</span></label>
+          <input type="text" id="name-input" placeholder="e.g. Alex" autocomplete="given-name" style="width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:10px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;padding:10px 14px;outline:none;transition:border-color 0.2s;">
+        </div>
+        <div class="field">
+          <label>Email address</label>
+          <input type="email" id="email-input" placeholder="you@example.com" autocomplete="email">
+          <div class="email-error" id="email-error">Please enter a valid email address.</div>
+        </div>
       </div>
       <div class="email-note">No spam, ever. Free AI and tech tools from @TheTechItOut only.</div>
       <button class="btn-primary" onclick="unlockResults()" style="margin-top:16px;">Unlock My Results →</button>
@@ -407,11 +413,13 @@ function unlockResults() {
   ei.style.borderColor = "#00cfff";
   err.style.display = "none";
 
-  // Submit via Netlify function to avoid CORS
+  const firstName = document.getElementById("name-input").value.trim();
+
+  // Submit via Netlify function
   fetch("/.netlify/functions/subscribe", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email: email })
+    body: JSON.stringify({ email: email, first_name: firstName })
   }).catch(() => {});
 
   buildResults();
