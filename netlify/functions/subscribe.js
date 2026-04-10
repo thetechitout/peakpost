@@ -3,10 +3,11 @@ exports.handler = async function(event) {
     return { statusCode: 405, body: "Method not allowed" };
   }
 
-  let email;
+  let email, first_name;
   try {
     const body = JSON.parse(event.body);
     email = body.email;
+    first_name = body.first_name || "";
   } catch {
     return { statusCode: 400, body: "Invalid request" };
   }
@@ -17,6 +18,19 @@ exports.handler = async function(event) {
 
   const apiKey = process.env.BEEHIIV_API_KEY;
 
+  const payload = {
+    email: email,
+    reactivate_existing: false,
+    send_welcome_email: true,
+    utm_source: "peakpost",
+    utm_medium: "lead_magnet",
+    utm_campaign: "peakpost_tool"
+  };
+
+  if (first_name) {
+    payload.custom_fields = [{ name: "First Name", value: first_name }];
+  }
+
   try {
     const response = await fetch("https://api.beehiiv.com/v2/publications/pub_a97db4ba-124b-48b9-84ad-9bc28e4f948f/subscriptions", {
       method: "POST",
@@ -24,14 +38,7 @@ exports.handler = async function(event) {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${apiKey}`
       },
-      body: JSON.stringify({
-        email: email,
-        reactivate_existing: false,
-        send_welcome_email: true,
-        utm_source: "peakpost",
-        utm_medium: "lead_magnet",
-        utm_campaign: "peakpost_tool"
-      })
+      body: JSON.stringify(payload)
     });
 
     const data = await response.json();
