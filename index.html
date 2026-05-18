@@ -1491,9 +1491,47 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
         
-        // Initialize on load
-        initTimeSavedTool();
-        trackEvent('Page', 'Load', 'AI Toolkit');
+        // Initialize event listeners when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tool card clicks
+            document.querySelectorAll('.tool-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const tool = this.getAttribute('data-tool');
+                    showTool(tool);
+                });
+            });
+            
+            // Back buttons
+            document.getElementById('back-from-time-saved').addEventListener('click', function() {
+                showTool('landing');
+            });
+            document.getElementById('back-from-best-time').addEventListener('click', function() {
+                showTool('landing');
+            });
+            document.getElementById('back-from-tool-finder').addEventListener('click', function() {
+                showTool('landing');
+            });
+            document.getElementById('back-from-productivity').addEventListener('click', function() {
+                showTool('landing');
+            });
+            document.getElementById('back-from-optimizer').addEventListener('click', function() {
+                showTool('landing');
+            });
+            
+            // Action buttons
+            document.getElementById('calculate-time-btn').addEventListener('click', calculateTimeSaved);
+            document.getElementById('get-best-times-btn').addEventListener('click', function() {
+                showEmailGate('besttime');
+            });
+            document.getElementById('find-tools-btn').addEventListener('click', findTools);
+            document.getElementById('calculate-score-btn').addEventListener('click', calculateProductivityScore);
+            document.getElementById('optimize-task-btn').addEventListener('click', optimizeTask);
+            document.getElementById('unlock-results-btn').addEventListener('click', unlockResults);
+            
+            // Initialize first tool
+            initTimeSavedTool();
+            trackEvent('Page', 'Load', 'AI Toolkit');
+        });
     </script>
 </body>
 </html>
