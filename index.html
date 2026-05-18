@@ -4,13 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Toolkit - Save Time with AI | TheTechItOut</title>
-    <meta name="description" content="Free AI productivity tools">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
     
-    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -20,11 +18,7 @@
     </script>
     
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
             font-family: 'DM Sans', sans-serif;
@@ -33,16 +27,8 @@
             min-height: 100vh;
         }
         
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-        
-        .header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
+        .header { text-align: center; margin-bottom: 60px; }
         
         .logo {
             width: 80px;
@@ -61,10 +47,7 @@
             margin-bottom: 15px;
         }
         
-        .tagline {
-            font-size: 1.2rem;
-            color: #a0a0a0;
-        }
+        .tagline { font-size: 1.2rem; color: #a0a0a0; }
         
         .credit {
             margin-top: 10px;
@@ -72,11 +55,7 @@
             color: #00ffff;
         }
         
-        .credit a {
-            color: #00ffff;
-            text-decoration: none;
-            font-weight: 600;
-        }
+        .credit a { color: #00ffff; text-decoration: none; font-weight: 600; }
         
         .tools-grid {
             display: grid;
@@ -98,10 +77,7 @@
             box-shadow: 0 10px 40px rgba(0, 255, 255, 0.2);
         }
         
-        .tool-icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
-        }
+        .tool-icon { font-size: 3rem; margin-bottom: 20px; }
         
         .tool-card h3 {
             font-family: 'Syne', sans-serif;
@@ -110,19 +86,10 @@
             color: #00ffff;
         }
         
-        .tool-card p {
-            color: #b0b0b0;
-            line-height: 1.6;
-        }
+        .tool-card p { color: #b0b0b0; line-height: 1.6; }
         
-        .tool-screen {
-            display: none;
-        }
-        
-        .tool-screen.active {
-            display: block;
-            animation: fadeIn 0.3s ease;
-        }
+        .tool-screen { display: none; }
+        .tool-screen.active { display: block; animation: fadeIn 0.3s ease; }
         
         @keyframes fadeIn {
             from { opacity: 0; }
@@ -152,6 +119,13 @@
             border: 1px solid rgba(0, 255, 255, 0.3);
             color: #00ffff;
             margin-bottom: 30px;
+        }
+        
+        h2 {
+            color: #00ffff;
+            font-family: 'Syne', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
         }
         
         @media (max-width: 768px) {
@@ -200,21 +174,45 @@
             </div>
         </div>
         
-        <!-- Calculator Screen -->
+        <!-- Calculator -->
         <div id="calculator" class="tool-screen">
-            <button class="back-button" id="backFromCalc">← Back to Tools</button>
-            <h2 style="color: #00ffff; font-family: 'Syne', sans-serif;">⏰ Time Saved Calculator</h2>
-            <p style="color: #b0b0b0; margin: 20px 0;">This tool calculates your time savings with AI!</p>
-            <button class="btn" id="calcBtn">Calculate Savings</button>
+            <button class="back-button">← Back to Tools</button>
+            <h2>⏰ Time Saved Calculator</h2>
+            <p style="color: #b0b0b0; margin-bottom: 20px;">Calculate your time savings with AI!</p>
+            <button class="btn">Calculate Savings</button>
             <div id="calcResult"></div>
         </div>
         
-        <!-- Other tool screens would go here -->
+        <!-- Posting -->
+        <div id="posting" class="tool-screen">
+            <button class="back-button">← Back to Tools</button>
+            <h2>🎯 Best Time to Post</h2>
+            <p style="color: #b0b0b0;">Find the best times to post on social media!</p>
+        </div>
         
+        <!-- Finder -->
+        <div id="finder" class="tool-screen">
+            <button class="back-button">← Back to Tools</button>
+            <h2>🤖 AI Tool Finder</h2>
+            <p style="color: #b0b0b0;">Discover AI tools for your needs!</p>
+        </div>
+        
+        <!-- Score -->
+        <div id="score" class="tool-screen">
+            <button class="back-button">← Back to Tools</button>
+            <h2>📊 Productivity Score</h2>
+            <p style="color: #b0b0b0;">Rate your AI productivity!</p>
+        </div>
+        
+        <!-- Optimizer -->
+        <div id="optimizer" class="tool-screen">
+            <button class="back-button">← Back to Tools</button>
+            <h2>⚡ Task Optimizer</h2>
+            <p style="color: #b0b0b0;">Optimize your repetitive tasks!</p>
+        </div>
     </div>
     
     <script>
-        // Track events
         function trackEvent(cat, act, lab) {
             if (typeof gtag !== 'undefined') {
                 gtag('event', act, {'event_category': cat, 'event_label': lab});
@@ -222,19 +220,25 @@
             console.log('Event:', cat, act, lab);
         }
         
-        // Show/hide screens
         function showScreen(screenId) {
+            console.log('Showing screen:', screenId);
+            const targetScreen = document.getElementById(screenId);
+            
+            if (!targetScreen) {
+                console.error('Screen not found:', screenId);
+                return;
+            }
+            
             document.querySelectorAll('.tool-screen').forEach(s => s.classList.remove('active'));
-            document.getElementById(screenId).classList.add('active');
+            targetScreen.classList.add('active');
             window.scrollTo({top: 0, behavior: 'smooth'});
             trackEvent('Navigation', 'Show', screenId);
         }
         
-        // Init when page loads
         document.addEventListener('DOMContentLoaded', function() {
             console.log('DOM loaded, attaching listeners...');
             
-            // Tool card clicks
+            // Tool cards
             document.querySelectorAll('.tool-card').forEach(card => {
                 card.addEventListener('click', function() {
                     const tool = this.getAttribute('data-tool');
@@ -243,26 +247,16 @@
                 });
             });
             
-            // Back button
-            const backBtn = document.getElementById('backFromCalc');
-            if (backBtn) {
-                backBtn.addEventListener('click', function() {
-                    console.log('Back clicked');
+            // Back buttons
+            document.querySelectorAll('.back-button').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    console.log('Back button clicked');
                     showScreen('landing');
                 });
-            }
+            });
             
-            // Calc button
-            const calcBtn = document.getElementById('calcBtn');
-            if (calcBtn) {
-                calcBtn.addEventListener('click', function() {
-                    console.log('Calculate clicked');
-                    document.getElementById('calcResult').innerHTML = '<p style="color: #00ffff; margin-top: 20px;">You save 100 hours per year!</p>';
-                });
-            }
-            
-            trackEvent('Page', 'Load', 'Toolkit');
             console.log('All listeners attached!');
+            trackEvent('Page', 'Load', 'Toolkit');
         });
     </script>
 </body>
