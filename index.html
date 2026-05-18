@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Toolkit - Save Time with AI | TheTechItOut</title>
+    <meta name="description" content="Free AI productivity tools: Calculate time savings, find best posting times, discover AI tools, rate your productivity, and optimize tasks.">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
     
+    <!-- Google Analytics - Replace G-XXXXXXXXXX with your GA4 ID -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -48,13 +50,7 @@
         }
         
         .tagline { font-size: 1.2rem; color: #a0a0a0; }
-        
-        .credit {
-            margin-top: 10px;
-            font-size: 0.9rem;
-            color: #00ffff;
-        }
-        
+        .credit { margin-top: 10px; font-size: 0.9rem; color: #00ffff; }
         .credit a { color: #00ffff; text-decoration: none; font-weight: 600; }
         
         .tools-grid {
@@ -78,23 +74,18 @@
         }
         
         .tool-icon { font-size: 3rem; margin-bottom: 20px; }
-        
         .tool-card h3 {
             font-family: 'Syne', sans-serif;
             font-size: 1.5rem;
             margin-bottom: 10px;
             color: #00ffff;
         }
-        
         .tool-card p { color: #b0b0b0; line-height: 1.6; }
         
         .tool-screen { display: none; }
         .tool-screen.active { display: block; animation: fadeIn 0.3s ease; }
         
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         
         .back-button, .btn {
             background: linear-gradient(135deg, #00ffff 0%, #00ccff 100%);
@@ -128,9 +119,194 @@
             margin-bottom: 20px;
         }
         
+        .form-group { margin-bottom: 25px; }
+        
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #00ffff;
+            font-weight: 500;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 10px;
+            color: #ffffff;
+            font-size: 1rem;
+            font-family: 'DM Sans', sans-serif;
+        }
+        
+        textarea { min-height: 120px; resize: vertical; }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #00ffff;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+        }
+        
+        .task-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .task-name { color: #00ffff; font-weight: 600; margin-bottom: 10px; }
+        
+        input[type="range"] {
+            width: 100%;
+            height: 8px;
+            background: rgba(0, 255, 255, 0.2);
+            border-radius: 5px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+        
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            background: #00ffff;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+        
+        input[type="range"]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            background: #00ffff;
+            cursor: pointer;
+            border-radius: 50%;
+            border: none;
+        }
+        
+        .hours-display { color: #b0b0b0; margin-top: 5px; }
+        
+        .results {
+            background: rgba(0, 255, 255, 0.1);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 40px;
+            margin-top: 30px;
+        }
+        
+        .stat { margin: 20px 0; }
+        .stat-label { color: #b0b0b0; margin-bottom: 5px; }
+        .stat-value {
+            font-family: 'Syne', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #00ffff;
+        }
+        
+        .checkbox-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+        }
+        
+        .checkbox-item:hover { background: rgba(0, 255, 255, 0.1); }
+        .checkbox-item input[type="checkbox"] { width: 20px; height: 20px; cursor: pointer; }
+        
+        .score-circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 30px auto;
+            position: relative;
+        }
+        
+        .score-circle-inner {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background: #0a0e27;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        
+        .score-number {
+            font-family: 'Syne', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            color: #00ffff;
+        }
+        
+        .score-label { color: #b0b0b0; font-size: 0.9rem; }
+        
+        .tool-recommendation {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+        
+        .tool-recommendation h4 {
+            color: #00ffff;
+            font-family: 'Syne', sans-serif;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+        
+        .tool-recommendation p { color: #b0b0b0; line-height: 1.6; }
+        
+        .tool-tag {
+            display: inline-block;
+            background: rgba(0, 255, 255, 0.2);
+            color: #00ffff;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-right: 10px;
+            margin-top: 10px;
+        }
+        
+        .email-gate {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 14, 39, 0.95);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .email-gate.active { display: flex; }
+        
+        .email-gate-content {
+            background: linear-gradient(135deg, #1a1f3a 0%, #0a0e27 100%);
+            border: 2px solid #00ffff;
+            border-radius: 20px;
+            padding: 50px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0, 255, 255, 0.3);
+        }
+        
         @media (max-width: 768px) {
             h1 { font-size: 2rem; }
             .tools-grid { grid-template-columns: 1fr; }
+            .stat-value { font-size: 2rem; }
+            .email-gate-content { padding: 30px; }
         }
     </style>
 </head>
@@ -149,70 +325,219 @@
                 <div class="tool-card" data-tool="calculator">
                     <div class="tool-icon">⏰</div>
                     <h3>Time Saved Calculator</h3>
-                    <p>Calculate hours saved per week using AI</p>
+                    <p>Calculate hours saved per week, month, and year using AI</p>
                 </div>
                 <div class="tool-card" data-tool="posting">
                     <div class="tool-icon">🎯</div>
                     <h3>Best Time to Post</h3>
-                    <p>Find optimal posting times for social media</p>
+                    <p>Find optimal posting times for your social media content</p>
                 </div>
                 <div class="tool-card" data-tool="finder">
                     <div class="tool-icon">🤖</div>
                     <h3>AI Tool Finder</h3>
-                    <p>Match to AI tools based on your role</p>
+                    <p>Match to the right AI tools based on your role and tasks</p>
                 </div>
                 <div class="tool-card" data-tool="score">
                     <div class="tool-icon">📊</div>
                     <h3>Productivity Score</h3>
-                    <p>Rate your AI usage 0-100</p>
+                    <p>Rate your AI usage 0-100 and get personalized tips</p>
                 </div>
                 <div class="tool-card" data-tool="optimizer">
                     <div class="tool-icon">⚡</div>
                     <h3>Task Optimizer</h3>
-                    <p>Get AI recommendations for tasks</p>
+                    <p>Get AI solution recommendations for repetitive tasks</p>
                 </div>
             </div>
         </div>
         
-        <!-- Calculator -->
+        <!-- Time Saved Calculator -->
         <div id="calculator" class="tool-screen">
             <button class="back-button">← Back to Tools</button>
             <h2>⏰ Time Saved Calculator</h2>
-            <p style="color: #b0b0b0; margin-bottom: 20px;">Calculate your time savings with AI!</p>
-            <button class="btn">Calculate Savings</button>
-            <div id="calcResult"></div>
+            <p style="color: #b0b0b0; margin-bottom: 30px;">Slide to adjust how many hours per week you spend on each task (without AI):</p>
+            <div id="tasks-container"></div>
+            <button class="btn" id="calculate-btn" style="margin-top: 30px;">Calculate Time Saved</button>
+            <div id="calc-results"></div>
         </div>
         
-        <!-- Posting -->
+        <!-- Best Time to Post -->
         <div id="posting" class="tool-screen">
             <button class="back-button">← Back to Tools</button>
             <h2>🎯 Best Time to Post</h2>
-            <p style="color: #b0b0b0;">Find the best times to post on social media!</p>
+            <div class="form-group">
+                <label>Select Your Platform</label>
+                <select id="platform">
+                    <option value="">Choose a platform...</option>
+                    <option value="instagram">Instagram</option>
+                    <option value="twitter">X (Twitter)</option>
+                    <option value="linkedin">LinkedIn</option>
+                    <option value="facebook">Facebook</option>
+                    <option value="tiktok">TikTok</option>
+                    <option value="youtube">YouTube</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Your Target Audience</label>
+                <select id="audience">
+                    <option value="">Choose audience...</option>
+                    <option value="b2b">B2B / Professionals</option>
+                    <option value="b2c">B2C / General Consumers</option>
+                    <option value="students">Students</option>
+                    <option value="creators">Content Creators</option>
+                    <option value="parents">Parents</option>
+                </select>
+            </div>
+            <button class="btn" id="posting-btn">Get My Best Times</button>
+            <div id="posting-results"></div>
         </div>
         
-        <!-- Finder -->
+        <!-- AI Tool Finder -->
         <div id="finder" class="tool-screen">
             <button class="back-button">← Back to Tools</button>
             <h2>🤖 AI Tool Finder</h2>
-            <p style="color: #b0b0b0;">Discover AI tools for your needs!</p>
+            <div class="form-group">
+                <label>What's your primary role?</label>
+                <select id="user-role">
+                    <option value="">Select your role...</option>
+                    <option value="marketer">Marketer / Content Creator</option>
+                    <option value="developer">Developer / Engineer</option>
+                    <option value="designer">Designer / Creative</option>
+                    <option value="entrepreneur">Entrepreneur / Founder</option>
+                    <option value="student">Student / Learner</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>What tasks do you want to automate?</label>
+                <div id="tasks-checklist">
+                    <div class="checkbox-item">
+                        <input type="checkbox" value="writing">
+                        <label>Writing & Content</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" value="coding">
+                        <label>Coding & Development</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" value="design">
+                        <label>Design & Visual</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" value="research">
+                        <label>Research & Analysis</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" value="data">
+                        <label>Data Processing</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Monthly budget for AI tools?</label>
+                <select id="budget">
+                    <option value="">Select budget...</option>
+                    <option value="free">Free tools only</option>
+                    <option value="low">Under $50/month</option>
+                    <option value="medium">$50-$200/month</option>
+                </select>
+            </div>
+            <button class="btn" id="finder-btn">Find My Tools</button>
+            <div id="finder-results"></div>
         </div>
         
-        <!-- Score -->
+        <!-- Productivity Score -->
         <div id="score" class="tool-screen">
             <button class="back-button">← Back to Tools</button>
-            <h2>📊 Productivity Score</h2>
-            <p style="color: #b0b0b0;">Rate your AI productivity!</p>
+            <h2>📊 AI Productivity Score</h2>
+            <div class="form-group">
+                <label>How many AI tools do you use?</label>
+                <select id="tools-count">
+                    <option value="0">None</option>
+                    <option value="1">1-2 tools</option>
+                    <option value="2">3-5 tools</option>
+                    <option value="3">6+ tools</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>How often do you use AI?</label>
+                <select id="ai-frequency">
+                    <option value="0">Rarely / Never</option>
+                    <option value="1">A few times a week</option>
+                    <option value="2">Daily</option>
+                    <option value="3">Multiple times per day</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Which tasks have you automated?</label>
+                <div id="auto-checklist">
+                    <div class="checkbox-item">
+                        <input type="checkbox" class="auto-check" value="10">
+                        <label>Email writing</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" class="auto-check" value="10">
+                        <label>Content creation</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" class="auto-check" value="10">
+                        <label>Data analysis</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" class="auto-check" value="10">
+                        <label>Research</label>
+                    </div>
+                </div>
+            </div>
+            <button class="btn" id="score-btn">Calculate My Score</button>
+            <div id="score-results"></div>
         </div>
         
-        <!-- Optimizer -->
+        <!-- Task Optimizer -->
         <div id="optimizer" class="tool-screen">
             <button class="back-button">← Back to Tools</button>
             <h2>⚡ Task Optimizer</h2>
-            <p style="color: #b0b0b0;">Optimize your repetitive tasks!</p>
+            <div class="form-group">
+                <label>What repetitive task takes up your time?</label>
+                <textarea id="task-desc" placeholder="Example: I spend 2 hours every week scheduling social media posts..."></textarea>
+            </div>
+            <div class="form-group">
+                <label>How often do you do this task?</label>
+                <select id="task-freq">
+                    <option value="daily">Daily</option>
+                    <option value="weekly">Weekly</option>
+                    <option value="monthly">Monthly</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>How much time does it take?</label>
+                <select id="task-duration">
+                    <option value="30">30 minutes</option>
+                    <option value="60">1 hour</option>
+                    <option value="120">2 hours</option>
+                    <option value="240">4+ hours</option>
+                </select>
+            </div>
+            <button class="btn" id="optimizer-btn">Get AI Solutions</button>
+            <div id="optimizer-results"></div>
+        </div>
+    </div>
+    
+    <!-- Email Gate -->
+    <div id="email-gate" class="email-gate">
+        <div class="email-gate-content">
+            <h2 style="font-family: 'Syne', sans-serif; color: #00ffff;">🎉 Get Your Results</h2>
+            <p style="color: #b0b0b0; margin-bottom: 30px;">Enter your email to unlock your personalized results and get FREE AI productivity tips!</p>
+            <div class="form-group">
+                <input type="email" id="email-input" placeholder="your@email.com">
+            </div>
+            <button class="btn" id="unlock-btn" style="width: 100%;">Unlock My Results</button>
+            <p style="font-size: 0.8rem; color: #808080; margin-top: 15px; text-align: center;">
+                We respect your privacy. Unsubscribe anytime.
+            </p>
         </div>
     </div>
     
     <script>
+        // Analytics
         function trackEvent(cat, act, lab) {
             if (typeof gtag !== 'undefined') {
                 gtag('event', act, {'event_category': cat, 'event_label': lab});
@@ -220,43 +545,444 @@
             console.log('Event:', cat, act, lab);
         }
         
-        function showScreen(screenId) {
-            console.log('Showing screen:', screenId);
-            const targetScreen = document.getElementById(screenId);
+        // Check saved email
+        const savedEmail = localStorage.getItem('ai_toolkit_email');
+        let currentTool = '';
+        let tempData = {};
+        
+        // Tasks data
+        const tasks = [
+            { name: 'Writing emails', hours: 0, speedup: 5 },
+            { name: 'Creating presentations', hours: 0, speedup: 4 },
+            { name: 'Summarizing documents', hours: 0, speedup: 6 },
+            { name: 'Data analysis', hours: 0, speedup: 3 },
+            { name: 'Brainstorming', hours: 0, speedup: 4 },
+            { name: 'Editing content', hours: 0, speedup: 3 },
+            { name: 'Research', hours: 0, speedup: 4 }
+        ];
+        
+        // AI Tools database
+        const aiTools = {
+            writing: [
+                { name: 'Claude', desc: 'Advanced AI for writing and analysis', tags: ['Writing', 'Research'] },
+                { name: 'ChatGPT', desc: 'General-purpose AI assistant', tags: ['Writing', 'Brainstorming'] },
+                { name: 'Jasper', desc: 'AI copywriting for marketing', tags: ['Marketing', 'Copy'] }
+            ],
+            coding: [
+                { name: 'GitHub Copilot', desc: 'AI pair programmer', tags: ['Coding', 'Development'] },
+                { name: 'Cursor', desc: 'AI-first code editor', tags: ['Coding', 'IDE'] },
+                { name: 'Claude', desc: 'Deep reasoning for coding', tags: ['Coding', 'Architecture'] }
+            ],
+            design: [
+                { name: 'Midjourney', desc: 'AI image generation', tags: ['Design', 'Art'] },
+                { name: 'Canva AI', desc: 'Design tools with AI', tags: ['Design', 'Graphics'] },
+                { name: 'DALL-E 3', desc: 'Advanced AI image creation', tags: ['Design', 'Art'] }
+            ],
+            research: [
+                { name: 'Claude', desc: 'Deep research capabilities', tags: ['Research', 'Analysis'] },
+                { name: 'Perplexity', desc: 'AI-powered search', tags: ['Search', 'Research'] },
+                { name: 'Consensus', desc: 'AI for academic research', tags: ['Academic', 'Research'] }
+            ],
+            data: [
+                { name: 'Claude', desc: 'Data analysis and visualization', tags: ['Data', 'Analysis'] },
+                { name: 'Julius AI', desc: 'AI data analyst', tags: ['Data', 'Analysis'] },
+                { name: 'Excel Copilot', desc: 'AI in Excel', tags: ['Data', 'Spreadsheets'] }
+            ]
+        };
+        
+        // Best posting times
+        const postingTimes = {
+            instagram: {
+                b2b: ['9 AM', '12 PM', '5 PM'],
+                b2c: ['12 PM', '6 PM', '9 PM'],
+                students: ['8 PM', '10 PM', '12 AM'],
+                creators: ['7 PM', '9 PM', '11 PM'],
+                parents: ['9 AM', '1 PM', '8 PM']
+            },
+            twitter: {
+                b2b: ['8 AM', '12 PM', '5 PM'],
+                b2c: ['12 PM', '3 PM', '6 PM'],
+                students: ['9 PM', '11 PM', '1 AM'],
+                creators: ['7 PM', '9 PM', '11 PM'],
+                parents: ['8 AM', '12 PM', '8 PM']
+            },
+            linkedin: {
+                b2b: ['8 AM', '12 PM', '5 PM'],
+                b2c: ['12 PM', '3 PM', '6 PM'],
+                students: ['8 AM', '12 PM', '5 PM'],
+                creators: ['8 AM', '12 PM', '5 PM'],
+                parents: ['8 AM', '12 PM', '5 PM']
+            },
+            facebook: {
+                b2b: ['9 AM', '1 PM', '3 PM'],
+                b2c: ['1 PM', '3 PM', '8 PM'],
+                students: ['8 PM', '10 PM', '12 AM'],
+                creators: ['7 PM', '9 PM', '11 PM'],
+                parents: ['1 PM', '3 PM', '8 PM']
+            },
+            tiktok: {
+                b2b: ['7 AM', '12 PM', '7 PM'],
+                b2c: ['7 PM', '9 PM', '11 PM'],
+                students: ['9 PM', '11 PM', '1 AM'],
+                creators: ['7 PM', '9 PM', '11 PM'],
+                parents: ['7 PM', '9 PM', '10 PM']
+            },
+            youtube: {
+                b2b: ['12 PM', '3 PM', '6 PM'],
+                b2c: ['2 PM', '5 PM', '9 PM'],
+                students: ['3 PM', '7 PM', '9 PM'],
+                creators: ['2 PM', '6 PM', '9 PM'],
+                parents: ['2 PM', '8 PM', '9 PM']
+            }
+        };
+        
+        // Initialize tasks
+        function initTasks() {
+            const container = document.getElementById('tasks-container');
+            container.innerHTML = '';
+            tasks.forEach((task, i) => {
+                container.innerHTML += `
+                    <div class="task-item">
+                        <div class="task-name">${task.name}</div>
+                        <input type="range" min="0" max="20" value="0" step="0.5" data-index="${i}">
+                        <div class="hours-display" id="hours-${i}">0 hours/week</div>
+                    </div>
+                `;
+            });
             
-            if (!targetScreen) {
-                console.error('Screen not found:', screenId);
+            container.querySelectorAll('input[type="range"]').forEach(slider => {
+                slider.addEventListener('input', function() {
+                    const i = this.getAttribute('data-index');
+                    tasks[i].hours = parseFloat(this.value);
+                    document.getElementById(`hours-${i}`).textContent = `${this.value} hours/week`;
+                });
+            });
+        }
+        
+        // Calculate time saved
+        function calculateTime() {
+            const total = tasks.reduce((sum, t) => sum + t.hours, 0);
+            if (total === 0) {
+                alert('Please select at least one task!');
                 return;
             }
             
-            document.querySelectorAll('.tool-screen').forEach(s => s.classList.remove('active'));
-            targetScreen.classList.add('active');
-            window.scrollTo({top: 0, behavior: 'smooth'});
-            trackEvent('Navigation', 'Show', screenId);
+            trackEvent('Tool', 'Calculate', 'Time Saved');
+            
+            if (!savedEmail) {
+                currentTool = 'calculator';
+                tempData.total = total;
+                document.getElementById('email-gate').classList.add('active');
+            } else {
+                showTimeResults(total);
+            }
         }
         
+        function showTimeResults(total) {
+            const saved = tasks.reduce((sum, t) => sum + (t.hours * (1 - 1/t.speedup)), 0);
+            const week = saved;
+            const month = saved * 4.33;
+            const year = saved * 52;
+            
+            document.getElementById('calc-results').innerHTML = `
+                <div class="results">
+                    <h2 style="font-family: 'Syne', sans-serif; color: #00ffff;">⏰ Your Time Savings</h2>
+                    <div class="stat">
+                        <div class="stat-label">Per Week</div>
+                        <div class="stat-value">${week.toFixed(1)} hours</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-label">Per Month</div>
+                        <div class="stat-value">${month.toFixed(1)} hours</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-label">Per Year</div>
+                        <div class="stat-value">${year.toFixed(0)} hours</div>
+                    </div>
+                    <p style="margin-top: 30px; color: #b0b0b0;">
+                        💡 That's ${(year/24).toFixed(0)} full days saved per year!
+                    </p>
+                    <button class="btn" style="margin-top: 20px;" onclick="showScreen('landing')">Try Another Tool</button>
+                </div>
+            `;
+        }
+        
+        // Best time to post
+        function getBestTimes() {
+            const platform = document.getElementById('platform').value;
+            const audience = document.getElementById('audience').value;
+            
+            if (!platform || !audience) {
+                alert('Please select platform and audience!');
+                return;
+            }
+            
+            trackEvent('Tool', 'Calculate', 'Best Time');
+            
+            if (!savedEmail) {
+                currentTool = 'posting';
+                tempData = { platform, audience };
+                document.getElementById('email-gate').classList.add('active');
+            } else {
+                showPostingResults(platform, audience);
+            }
+        }
+        
+        function showPostingResults(platform, audience) {
+            const times = postingTimes[platform][audience];
+            const platformName = document.getElementById('platform').selectedOptions[0].text;
+            
+            document.getElementById('posting-results').innerHTML = `
+                <div class="results">
+                    <h2 style="font-family: 'Syne', sans-serif; color: #00ffff;">🎯 Your Best Times</h2>
+                    <p style="color: #b0b0b0; margin-bottom: 30px;">For ${platformName}</p>
+                    <div class="stat">
+                        <div class="stat-label">Best Time #1</div>
+                        <div class="stat-value">${times[0]}</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-label">Best Time #2</div>
+                        <div class="stat-value">${times[1]}</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-label">Best Time #3</div>
+                        <div class="stat-value">${times[2]}</div>
+                    </div>
+                    <p style="margin-top: 30px; color: #b0b0b0;">
+                        💡 Test these times for 2 weeks and track engagement!
+                    </p>
+                    <button class="btn" style="margin-top: 20px;" onclick="showScreen('landing')">Try Another Tool</button>
+                </div>
+            `;
+        }
+        
+        // Find tools
+        function findTools() {
+            const role = document.getElementById('user-role').value;
+            const budget = document.getElementById('budget').value;
+            const selected = Array.from(document.querySelectorAll('#tasks-checklist input:checked')).map(cb => cb.value);
+            
+            if (!role || !budget || selected.length === 0) {
+                alert('Please answer all questions!');
+                return;
+            }
+            
+            trackEvent('Tool', 'Find', role);
+            
+            if (!savedEmail) {
+                currentTool = 'finder';
+                tempData = { role, budget, selected };
+                document.getElementById('email-gate').classList.add('active');
+            } else {
+                showFinderResults(selected);
+            }
+        }
+        
+        function showFinderResults(selected) {
+            let recs = [];
+            selected.forEach(task => {
+                if (aiTools[task]) recs = recs.concat(aiTools[task]);
+            });
+            
+            // Remove duplicates
+            recs = recs.filter((t, i, self) => i === self.findIndex(x => x.name === t.name));
+            recs = recs.slice(0, 5);
+            
+            document.getElementById('finder-results').innerHTML = `
+                <div class="results">
+                    <h2 style="font-family: 'Syne', sans-serif; color: #00ffff;">🤖 Recommended Tools</h2>
+                    ${recs.map(tool => `
+                        <div class="tool-recommendation">
+                            <h4>${tool.name}</h4>
+                            <p>${tool.desc}</p>
+                            <div>${tool.tags.map(tag => `<span class="tool-tag">${tag}</span>`).join('')}</div>
+                        </div>
+                    `).join('')}
+                    <button class="btn" style="margin-top: 20px;" onclick="showScreen('landing')">Try Another Tool</button>
+                </div>
+            `;
+        }
+        
+        // Calculate score
+        function calculateScore() {
+            const count = parseInt(document.getElementById('tools-count').value);
+            const freq = parseInt(document.getElementById('ai-frequency').value);
+            const auto = document.querySelectorAll('.auto-check:checked').length * 10;
+            const score = (count * 15) + (freq * 15) + auto;
+            
+            trackEvent('Tool', 'Score', score);
+            
+            if (!savedEmail) {
+                currentTool = 'score';
+                tempData.score = score;
+                document.getElementById('email-gate').classList.add('active');
+            } else {
+                showScoreResults(score);
+            }
+        }
+        
+        function showScoreResults(score) {
+            let rating, feedback;
+            if (score < 30) {
+                rating = 'Getting Started';
+                feedback = 'Huge potential to boost productivity!';
+            } else if (score < 60) {
+                rating = 'AI Aware';
+                feedback = 'Room to optimize your toolkit.';
+            } else if (score < 80) {
+                rating = 'Power User';
+                feedback = 'Leveraging AI effectively!';
+            } else {
+                rating = 'AI Expert';
+                feedback = 'Maximizing AI productivity!';
+            }
+            
+            document.getElementById('score-results').innerHTML = `
+                <div class="results">
+                    <h2 style="font-family: 'Syne', sans-serif; color: #00ffff;">📊 Your Score</h2>
+                    <div class="score-circle" style="background: conic-gradient(#00ffff 0% ${score}%, rgba(0,255,255,0.2) ${score}% 100%);">
+                        <div class="score-circle-inner">
+                            <div class="score-number">${score}</div>
+                            <div class="score-label">out of 100</div>
+                        </div>
+                    </div>
+                    <div style="text-align: center;">
+                        <h3 style="color: #00ffff; font-family: 'Syne', sans-serif; font-size: 1.8rem; margin-bottom: 15px;">${rating}</h3>
+                        <p style="color: #b0b0b0;">${feedback}</p>
+                    </div>
+                    <button class="btn" style="margin-top: 20px;" onclick="showScreen('landing')">Try Another Tool</button>
+                </div>
+            `;
+        }
+        
+        // Optimize task
+        function optimizeTask() {
+            const desc = document.getElementById('task-desc').value;
+            const freq = document.getElementById('task-freq').value;
+            const duration = parseInt(document.getElementById('task-duration').value);
+            
+            if (!desc) {
+                alert('Please describe your task!');
+                return;
+            }
+            
+            trackEvent('Tool', 'Optimize', freq);
+            
+            if (!savedEmail) {
+                currentTool = 'optimizer';
+                tempData = { desc, freq, duration };
+                document.getElementById('email-gate').classList.add('active');
+            } else {
+                showOptimizerResults(desc, freq, duration);
+            }
+        }
+        
+        function showOptimizerResults(desc, freq, duration) {
+            const keywords = desc.toLowerCase();
+            let recs = [];
+            
+            if (keywords.includes('social') || keywords.includes('post')) {
+                recs.push({ tool: 'Buffer', solution: 'Schedule posts across platforms', saved: '70%' });
+            }
+            if (keywords.includes('email')) {
+                recs.push({ tool: 'Claude', solution: 'Draft emails with AI', saved: '80%' });
+            }
+            if (keywords.includes('data') || keywords.includes('spreadsheet')) {
+                recs.push({ tool: 'Excel Copilot', solution: 'AI formulas and analysis', saved: '70%' });
+            }
+            if (recs.length === 0) {
+                recs = [{ tool: 'Claude', solution: 'General AI automation', saved: '60%' }];
+            }
+            
+            const mult = freq === 'daily' ? 5 : freq === 'weekly' ? 1 : 0.25;
+            const yearSaved = (duration * mult * 52 * 0.7 / 60).toFixed(0);
+            
+            document.getElementById('optimizer-results').innerHTML = `
+                <div class="results">
+                    <h2 style="font-family: 'Syne', sans-serif; color: #00ffff;">⚡ AI Solutions</h2>
+                    <div style="background: rgba(0,255,255,0.1); padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                        <p style="color: #fff;">${desc}</p>
+                    </div>
+                    ${recs.map((r, i) => `
+                        <div class="tool-recommendation">
+                            <h4>${i+1}. ${r.tool}</h4>
+                            <p>${r.solution}</p>
+                            <span class="tool-tag">~${r.saved} time saved</span>
+                        </div>
+                    `).join('')}
+                    <p style="margin-top: 20px; color: #b0b0b0;">
+                        💡 Estimated savings: <strong style="color: #00ffff;">${yearSaved} hours/year</strong>
+                    </p>
+                    <button class="btn" style="margin-top: 20px;" onclick="showScreen('landing')">Try Another Tool</button>
+                </div>
+            `;
+        }
+        
+        // Email unlock
+        function unlockResults() {
+            const email = document.getElementById('email-input').value;
+            if (!email || !email.includes('@')) {
+                alert('Please enter a valid email!');
+                return;
+            }
+            
+            localStorage.setItem('ai_toolkit_email', email);
+            trackEvent('Email', 'Capture', currentTool);
+            
+            // Close gate
+            document.getElementById('email-gate').classList.remove('active');
+            
+            // Show results
+            if (currentTool === 'calculator') {
+                showTimeResults(tempData.total);
+            } else if (currentTool === 'posting') {
+                showPostingResults(tempData.platform, tempData.audience);
+            } else if (currentTool === 'finder') {
+                showFinderResults(tempData.selected);
+            } else if (currentTool === 'score') {
+                showScoreResults(tempData.score);
+            } else if (currentTool === 'optimizer') {
+                showOptimizerResults(tempData.desc, tempData.freq, tempData.duration);
+            }
+        }
+        
+        // Show screen
+        function showScreen(id) {
+            document.querySelectorAll('.tool-screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            window.scrollTo({top: 0, behavior: 'smooth'});
+            trackEvent('Navigation', 'Show', id);
+        }
+        
+        // Init
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('DOM loaded, attaching listeners...');
+            console.log('Initializing AI Toolkit...');
             
             // Tool cards
             document.querySelectorAll('.tool-card').forEach(card => {
                 card.addEventListener('click', function() {
-                    const tool = this.getAttribute('data-tool');
-                    console.log('Card clicked:', tool);
-                    showScreen(tool);
+                    showScreen(this.getAttribute('data-tool'));
                 });
             });
             
             // Back buttons
             document.querySelectorAll('.back-button').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    console.log('Back button clicked');
-                    showScreen('landing');
-                });
+                btn.addEventListener('click', () => showScreen('landing'));
             });
             
-            console.log('All listeners attached!');
+            // Action buttons
+            document.getElementById('calculate-btn').addEventListener('click', calculateTime);
+            document.getElementById('posting-btn').addEventListener('click', getBestTimes);
+            document.getElementById('finder-btn').addEventListener('click', findTools);
+            document.getElementById('score-btn').addEventListener('click', calculateScore);
+            document.getElementById('optimizer-btn').addEventListener('click', optimizeTask);
+            document.getElementById('unlock-btn').addEventListener('click', unlockResults);
+            
+            // Init tasks
+            initTasks();
+            
             trackEvent('Page', 'Load', 'Toolkit');
+            console.log('All systems ready! ✅');
         });
     </script>
 </body>
