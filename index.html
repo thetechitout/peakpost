@@ -238,6 +238,8 @@ input[type="range"]::-moz-range-thumb { width: 17px; height: 17px; background: v
 }
 .email-gate-content h2 { font-family: var(--display); font-size: 1.6rem; margin-bottom: 14px; }
 .email-gate-content p { color: var(--muted); margin-bottom: 26px; line-height: 1.6; font-size: 0.95rem; }
+#beehiiv-form-mount { min-height: 90px; }
+#beehiiv-form-mount iframe { width: 100% !important; }
 .privacy-note { font-size: 0.76rem; color: #656d84; margin-top: 14px; text-align: center; font-family: var(--mono); }
 
 footer { border-top: 1px solid var(--border); padding: 20px 0; margin-top: 0; }
@@ -519,10 +521,9 @@ footer { border-top: 1px solid var(--border); padding: 20px 0; margin-top: 0; }
   <div class="email-gate-content">
     <h2>Unlock your results</h2>
     <p>Drop your email to see your personalized results, plus occasional AI productivity tips.</p>
-    <div class="form-group" style="margin-bottom: 16px;">
-      <input type="email" id="email-input" placeholder="your@email.com">
+    <div id="beehiiv-form-mount">
+      <script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="238bdbae-f318-46ef-af6d-a637a7d0a093"></script>
     </div>
-    <button class="btn" id="unlock-btn" style="width: 100%;">Unlock my results</button>
     <p class="privacy-note">We respect your privacy. Unsubscribe anytime.</p>
   </div>
 </div>
@@ -535,7 +536,7 @@ function trackEvent(cat, act, lab) {
   console.log('Event:', cat, act, lab);
 }
 
-const savedEmail = localStorage.getItem('ai_toolkit_email');
+function hasUnlocked() { return !!localStorage.getItem('ai_toolkit_email'); }
 let currentTool = '';
 let tempData = {};
 
@@ -611,9 +612,9 @@ function calculateTime() {
   const total = tasks.reduce((sum, t) => sum + t.hours, 0);
   if (total === 0) { alert('Please select at least one task!'); return; }
   trackEvent('Tool', 'Calculate', 'Time Saved');
-  if (!savedEmail) {
+  if (!hasUnlocked()) {
     currentTool = 'calculator'; tempData.total = total;
-    document.getElementById('email-gate').classList.add('active');
+    openEmailGate();
   } else { showTimeResults(total); }
 }
 
@@ -637,9 +638,9 @@ function getBestTimes() {
   const audience = document.getElementById('audience').value;
   if (!platform || !audience) { alert('Please select platform and audience!'); return; }
   trackEvent('Tool', 'Calculate', 'Best Time');
-  if (!savedEmail) {
+  if (!hasUnlocked()) {
     currentTool = 'posting'; tempData = { platform, audience };
-    document.getElementById('email-gate').classList.add('active');
+    openEmailGate();
   } else { showPostingResults(platform, audience); }
 }
 
@@ -665,9 +666,9 @@ function findTools() {
   const selected = Array.from(document.querySelectorAll('#tasks-checklist input:checked')).map(cb => cb.value);
   if (!role || !budget || selected.length === 0) { alert('Please answer all questions!'); return; }
   trackEvent('Tool', 'Find', role);
-  if (!savedEmail) {
+  if (!hasUnlocked()) {
     currentTool = 'finder'; tempData = { role, budget, selected };
-    document.getElementById('email-gate').classList.add('active');
+    openEmailGate();
   } else { showFinderResults(selected); }
 }
 
@@ -696,9 +697,9 @@ function calculateScore() {
   const auto = document.querySelectorAll('.auto-check:checked').length * 10;
   const score = (count * 15) + (freq * 15) + auto;
   trackEvent('Tool', 'Score', score);
-  if (!savedEmail) {
+  if (!hasUnlocked()) {
     currentTool = 'score'; tempData.score = score;
-    document.getElementById('email-gate').classList.add('active');
+    openEmailGate();
   } else { showScoreResults(score); }
 }
 
@@ -732,9 +733,9 @@ function optimizeTask() {
   const duration = parseInt(document.getElementById('task-duration').value);
   if (!desc) { alert('Please describe your task!'); return; }
   trackEvent('Tool', 'Optimize', freq);
-  if (!savedEmail) {
+  if (!hasUnlocked()) {
     currentTool = 'optimizer'; tempData = { desc, freq, duration };
-    document.getElementById('email-gate').classList.add('active');
+    openEmailGate();
   } else { showOptimizerResults(desc, freq, duration); }
 }
 
@@ -766,17 +767,19 @@ function showOptimizerResults(desc, freq, duration) {
   `;
 }
 
-function unlockResults() {
-  const email = document.getElementById('email-input').value;
-  if (!email || !email.includes('@')) { alert('Please enter a valid email!'); return; }
-  localStorage.setItem('ai_toolkit_email', email);
-  trackEvent('Email', 'Capture', currentTool);
-  document.getElementById('email-gate').classList.remove('active');
-  if (currentTool === 'calculator') showTimeResults(tempData.total);
-  else if (currentTool === 'posting') showPostingResults(tempData.platform, tempData.audience);
-  else if (currentTool === 'finder') showFinderResults(tempData.selected);
-  else if (currentTool === 'score') showScoreResults(tempData.score);
-  else if (currentTool === 'optimizer') showOptimizerResults(tempData.desc, tempData.freq, tempData.duration);
+function openEmailGate() {
+  // Save what the visitor was working on so it survives the redirect back
+  // from Beehiiv's subscribe form.
+  localStorage.setItem('pending_unlock', JSON.stringify({ tool: currentTool, data: tempData }));
+  document.getElementById('email-gate').classList.add('active');
+}
+
+function showResultsFor(tool, data) {
+  if (tool === 'calculator') showTimeResults(data.total);
+  else if (tool === 'posting') showPostingResults(data.platform, data.audience);
+  else if (tool === 'finder') showFinderResults(data.selected);
+  else if (tool === 'score') showScoreResults(data.score);
+  else if (tool === 'optimizer') showOptimizerResults(data.desc, data.freq, data.duration);
 }
 
 function showScreen(id) {
@@ -801,9 +804,31 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('finder-btn').addEventListener('click', findTools);
   document.getElementById('score-btn').addEventListener('click', calculateScore);
   document.getElementById('optimizer-btn').addEventListener('click', optimizeTask);
-  document.getElementById('unlock-btn').addEventListener('click', unlockResults);
   initTasks();
   trackEvent('Page', 'Load', 'Toolkit');
+
+  // Returning from the Beehiiv subscribe form: Beehiiv redirects here with
+  // ?welcome=1 once someone actually subscribes. Restore whatever tool
+  // they were using and show their result immediately.
+  const params = new URLSearchParams(window.location.search);
+  const pending = localStorage.getItem('pending_unlock');
+  if (params.get('welcome') === '1' && pending) {
+    try {
+      const { tool, data } = JSON.parse(pending);
+      localStorage.setItem('ai_toolkit_email', 'subscribed');
+      trackEvent('Email', 'Capture', tool);
+      document.getElementById('email-gate').classList.remove('active');
+      if (tool) {
+        showScreen(tool);
+        showResultsFor(tool, data);
+      }
+    } catch (e) {
+      console.error('Could not restore pending result:', e);
+    }
+    localStorage.removeItem('pending_unlock');
+    // Clean the URL so refreshing doesn't re-trigger this
+    window.history.replaceState({}, document.title, window.location.pathname);
+  }
 });
 </script>
 </body>
