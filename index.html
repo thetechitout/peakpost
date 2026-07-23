@@ -521,9 +521,7 @@ footer { border-top: 1px solid var(--border); padding: 20px 0; margin-top: 0; }
   <div class="email-gate-content">
     <h2>Unlock your results</h2>
     <p>Drop your email to see your personalized results, plus occasional AI productivity tips.</p>
-    <div id="beehiiv-form-mount">
-      <script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="238bdbae-f318-46ef-af6d-a637a7d0a093"></script>
-    </div>
+    <div id="beehiiv-form-mount"></div>
     <p class="privacy-note">We respect your privacy. Unsubscribe anytime.</p>
   </div>
 </div>
@@ -767,11 +765,26 @@ function showOptimizerResults(desc, freq, duration) {
   `;
 }
 
+let beehiivLoaded = false;
+
 function openEmailGate() {
   // Save what the visitor was working on so it survives the redirect back
   // from Beehiiv's subscribe form.
   localStorage.setItem('pending_unlock', JSON.stringify({ tool: currentTool, data: tempData }));
   document.getElementById('email-gate').classList.add('active');
+
+  // Load the Beehiiv form script only now, once the modal is actually
+  // visible. Injecting it upfront while the modal was display:none meant
+  // the loader had a zero-size, hidden container to work with and never
+  // rendered the form.
+  if (!beehiivLoaded) {
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = 'https://subscribe-forms.beehiiv.com/v3/loader.js';
+    script.setAttribute('data-beehiiv-form', '238bdbae-f318-46ef-af6d-a637a7d0a093');
+    document.getElementById('beehiiv-form-mount').appendChild(script);
+    beehiivLoaded = true;
+  }
 }
 
 function showResultsFor(tool, data) {
